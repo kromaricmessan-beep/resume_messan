@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Krou Romaric MESSAN — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --surface: #13161e;
+      --surface2: #1a1e2a;
+      --accent: #c8a96e;
+      --accent2: #7eb8c9;
+      --text: #e8e4dc;
+      --muted: #7a7f8e;
+      --border: rgba(200,169,110,0.18);
+      --glow: rgba(200,169,110,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(13,15,20,0.85);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent);
+    }
+
+    .nav-links a:hover::after, .nav-links a.active::after {
+      width: 100%;
+    }
+
+    /* ── HERO / CV ── */
+    #cv {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 7rem 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #cv::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(200,169,110,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    #cv::after {
+      content: '';
+      position: absolute;
+      bottom: -150px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(126,184,201,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 6rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-left { text-align: center; }
+
+    .avatar-wrap {
+      width: 200px; height: 200px;
+      margin: 0 auto 2rem;
+      position: relative;
+    }
+
+    .avatar-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: conic-gradient(var(--accent), var(--accent2), var(--accent));
+      animation: spin 8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .avatar-wrap img {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+      border: 4px solid var(--bg);
+    }
+
+    .avatar-placeholder {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: var(--accent);
+      position: relative;
+      z-index: 1;
+      border: 4px solid var(--bg);
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-title {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      align-items: flex-start;
+      margin: 1.5rem auto 0;
+      max-width: 260px;
+    }
+
+    .contact-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .contact-list li span.icon {
+      color: var(--accent);
+      font-size: 0.9rem;
+      width: 16px;
+      text-align: center;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1.5rem;
+      justify-content: center;
+    }
+
+    .badge {
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--surface);
+      transition: all 0.3s;
+    }
+
+    .badge:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .hero-right {}
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-bio {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .stat-item {}
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      padding: 0.35rem 0.85rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--accent2);
+      transition: all 0.25s;
+    }
+
+    .skill-tag:hover {
+      background: rgba(126,184,201,0.1);
+      border-color: var(--accent2);
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 6rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    section:nth-child(even) {
+      background: var(--surface);
+    }
+
+    .section-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      color: var(--text);
+      margin-top: 0.5rem;
+    }
+
+    /* ── TIMELINE (Experience & Formation) ── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 0 0 3rem 2.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -5px; top: 8px;
+      width: 11px; height: 11px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(200,169,110,0.5);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .tl-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.4rem;
+    }
+
+    .tl-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .tl-org {
+      font-size: 0.82rem;
+      color: var(--accent2);
+      margin-bottom: 0.9rem;
+      font-weight: 500;
+    }
+
+    .tl-body {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .tl-body ul {
+      padding-left: 1.2rem;
+    }
+
+    .tl-body ul li {
+      margin-bottom: 0.35rem;
+      position: relative;
+    }
+
+    .tl-body ul li::marker {
+      color: var(--accent);
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      cursor: default;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      border-color: var(--accent);
+    }
+
+    .project-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .project-tag {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      background: rgba(200,169,110,0.1);
+      border: 1px solid rgba(200,169,110,0.25);
+      color: var(--accent);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* ── CERTIFICATIONS ── */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .cert-card {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.3rem 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .cert-card:hover {
+      border-color: var(--accent2);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+
+    .cert-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: rgba(200,169,110,0.1);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .cert-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .cert-issuer {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ── FORMATION ── */
+    .edu-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 1.2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      transition: border-color 0.3s;
+    }
+
+    .edu-card:hover {
+      border-color: var(--accent);
+    }
+
+    .edu-degree {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .edu-school {
+      font-size: 0.85rem;
+      color: var(--accent2);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .edu-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .edu-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      background: rgba(200,169,110,0.08);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    /* ── LANGUAGES ── */
+    .lang-row {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .lang-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .lang-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .lang-level {
+      display: flex;
+      gap: 4px;
+    }
+
+    .lang-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    .lang-dot.fill { background: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: var(--bg);
+      position: relative;
+      z-index: 1;
+    }
+
+    footer span { color: var(--accent); }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .nav-links a { font-size: 0.72rem; }
+      section { padding: 4rem 1.5rem; }
+      #cv { padding: 6rem 1.5rem 4rem; }
+      .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-right { text-align: center; }
+      .stats-row { justify-content: center; }
+      .skills-grid { justify-content: center; }
+      .section-label::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#cv" class="nav-logo">K.R. Messan</a>
+  <ul class="nav-links">
+    <li><a href="#cv" class="active">CV</a></li>
+    <li><a href="#formation">Formation</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#experience">Expérience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════ HERO / CV ═══════ -->
+<section id="cv">
+  <div class="hero-grid">
+
+    <div class="hero-left reveal">
+      <div class="avatar-wrap">
+        <div class="avatar-placeholder">KR</div>
+      </div>
+      <div class="hero-name">Krou Romaric<br/>MESSAN</div>
+      <div class="hero-title">Ingénieur des Travaux Statistiques</div>
+      <ul class="contact-list">
+        <li><span class="icon">✉</span> romaric.messan@yahoo.com</li>
+        <li><span class="icon">📞</span> 05 07 29 55 07</li>
+        <li><span class="icon">📍</span> Abidjan, Côte d'Ivoire</li>
+        <li><span class="icon">🚗</span> Permis A, B, C, D, E</li>
+      </ul>
+      <div class="badge-row">
+        <div class="badge">🎵 Batterie</div>
+        <div class="badge">♟ Jeux de société</div>
+        <div class="badge">🍳 Cuisine</div>
+      </div>
+    </div>
+
+    <div class="hero-right reveal" style="animation-delay:0.15s">
+      <div class="section-label">Profil</div>
+      <h1 class="hero-headline">Data <em>Analyst</em><br/>& Statisticien</h1>
+      <p class="hero-bio">
+        Ingénieur des Travaux Statistiques diplômé avec une solide expérience en analyse de données et création de dashboards interactifs. Capable de manager des équipes et de piloter des projets complexes tout en assurant la qualité et la cohérence des données pour une prise de décision éclairée.
+      </p>
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-num">7+</div>
+          <div class="stat-label">Années d'exp.</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">43</div>
+          <div class="stat-label">Agents formés</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Projets majeurs</div>
+        </div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-tag">Python</div>
+        <div class="skill-tag">Power BI</div>
+        <div class="skill-tag">Tableau</div>
+        <div class="skill-tag">VBA</div>
+        <div class="skill-tag">Stata</div>
+        <div class="skill-tag">SPSS</div>
+        <div class="skill-tag">CSPro</div>
+        <div class="skill-tag">ODK</div>
+        <div class="skill-tag">Survey Solutions</div>
+        <div class="skill-tag">MS Office</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ FORMATION ═══════ -->
+<section id="formation">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-label">Parcours académique</div>
+      <h2 class="section-title">Formation</h2>
+    </div>
+
+    <div class="edu-card reveal">
+      <div>
+        <div class="edu-degree">Ingénieur des Travaux Statistiques (ITS)</div>
+        <div class="edu-school">ENSEA — École Nationale Supérieure de Statistique et d'Économie Appliquée, Abidjan</div>
+        <div class="edu-desc">Formation d'excellence en statistiques appliquées, économétrie, méthodes d'enquête et analyse de données. Spécialisation en traitement de données massives et systèmes d'information statistique.</div>
+      </div>
+      <span class="edu-year">2020 – 2022</span>
+    </div>
+
+    <div class="edu-card reveal">
+      <div>
+        <div class="edu-degree">Adjoint Technique de la Statistique</div>
+        <div class="edu-school">ENSEA, Abidjan</div>
+        <div class="edu-desc">Maîtrise des outils statistiques fondamentaux, collecte et traitement de données, élaboration d'indicateurs statistiques.</div>
+      </div>
+      <span class="edu-year">2016 – 2018</span>
+    </div>
+
+    <div class="edu-card reveal">
+      <div>
+        <div class="edu-degree">Agent Technique de la Statistique</div>
+        <div class="edu-school">ENSEA, Abidjan</div>
+        <div class="edu-desc">Introduction aux méthodes de collecte de données statistiques et aux outils d'analyse de base.</div>
+      </div>
+      <span class="edu-year">2015 – 2016</span>
+    </div>
+
+    <div class="edu-card reveal">
+      <div>
+        <div class="edu-degree">Baccalauréat Série D</div>
+        <div class="edu-school">Lycée Classique d'Abidjan, Abidjan</div>
+        <div class="edu-desc">Sciences expérimentales avec option mathématiques et sciences de la vie et de la terre.</div>
+      </div>
+      <span class="edu-year">2012 – 2015</span>
+    </div>
+
+    <div style="margin-top: 2.5rem;" class="reveal">
+      <div class="section-label" style="margin-bottom:1rem">Langues</div>
+      <div class="lang-row">
+        <div class="lang-item">
+          <span class="lang-name">Français</span>
+          <div class="lang-level">
+            <div class="lang-dot fill"></div><div class="lang-dot fill"></div>
+            <div class="lang-dot fill"></div><div class="lang-dot fill"></div><div class="lang-dot fill"></div>
+          </div>
+          <span style="font-size:0.75rem;color:var(--muted)">Langue maternelle</span>
+        </div>
+        <div class="lang-item">
+          <span class="lang-name">Anglais</span>
+          <div class="lang-level">
+            <div class="lang-dot fill"></div><div class="lang-dot fill"></div>
+            <div class="lang-dot fill"></div><div class="lang-dot"></div><div class="lang-dot"></div>
+          </div>
+          <span style="font-size:0.75rem;color:var(--muted)">Intermédiaire</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ PROJETS ═══════ -->
+<section id="projets">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-label">Réalisations clés</div>
+      <h2 class="section-title">Projets</h2>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-icon">📊</div>
+        <div class="project-title">Recensement Général des Entreprises</div>
+        <div class="project-desc">Pilotage et coordination d'équipes de codification lors du Recensement Général des Entreprises et Établissements pour l'ANSTAT. Garantissant la qualité des données à grande échelle.</div>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">Excel</span>
+          <span class="project-tag">Dashboard</span>
+          <span class="project-tag">ANSTAT</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="animation-delay:0.1s">
+        <div class="project-icon">💼</div>
+        <div class="project-title">Centrales de Bilan Annuelles</div>
+        <div class="project-desc">Contrôle et validation de la cohérence des données financières pour l'élaboration des centrales de bilan annuelles couvrant la période 2018–2022.</div>
+        <div class="project-tags">
+          <span class="project-tag">Données financières</span>
+          <span class="project-tag">Validation</span>
+          <span class="project-tag">Reporting</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="animation-delay:0.2s">
+        <div class="project-icon">🌍</div>
+        <div class="project-title">Étude DATAFID</div>
+        <div class="project-desc">Analyse des données issues de l'étude DATAFID avec production de rapports détaillés pour des partenaires internationaux, dont Expertise France.</div>
+        <div class="project-tags">
+          <span class="project-tag">Analyse</span>
+          <span class="project-tag">Rapport</span>
+          <span class="project-tag">Expertise France</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="animation-delay:0.05s">
+        <div class="project-icon">🏥</div>
+        <div class="project-title">Enquête HHFA 2022 — OMS</div>
+        <div class="project-desc">Paramétrage de CSPro et validation des indicateurs de l'enquête HHFA. Rôle d'expert adjoint pays pour l'adaptation des outils de collecte.</div>
+        <div class="project-tags">
+          <span class="project-tag">CSPro</span>
+          <span class="project-tag">OMS</span>
+          <span class="project-tag">Santé</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="animation-delay:0.15s">
+        <div class="project-icon">📈</div>
+        <div class="project-title">Potentiel Économique de Tiassalé</div>
+        <div class="project-desc">Enquête académique d'évaluation du potentiel économique du département de Tiassalé. Direction de l'équipe de 5 personnes en tant que sous-chef.</div>
+        <div class="project-tags">
+          <span class="project-tag">Enquête</span>
+          <span class="project-tag">ENSEA</span>
+          <span class="project-tag">Économie</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="animation-delay:0.25s">
+        <div class="project-icon">👨‍👩‍👧</div>
+        <div class="project-title">Projet PAPSE — UNESCO</div>
+        <div class="project-desc">Collecte des données de l'évaluation post-test de la formation parentale du projet PAPSE dans les régions du Nord (Odienné, Boundiali).</div>
+        <div class="project-tags">
+          <span class="project-tag">UNESCO</span>
+          <span class="project-tag">Collecte</span>
+          <span class="project-tag">Évaluation</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ EXPÉRIENCE ═══════ -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-label">Parcours professionnel</div>
+      <h2 class="section-title">Expérience</h2>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="tl-period">Nov. 2023 — Aujourd'hui</div>
+        <div class="tl-title">Consultant Ingénieur des Travaux Statistiques</div>
+        <div class="tl-org">ANSTAT — Autorité Nationale de la Statistique, Côte d'Ivoire</div>
+        <div class="tl-body">
+          <ul>
+            <li>Pilotage et coordination d'équipes de codification lors du recensement général des entreprises et établissements, garantissant la qualité des données.</li>
+            <li>Conception et mise en place de dashboards interactifs avec Python et Excel pour le suivi et la visualisation des indicateurs clés.</li>
+            <li>Formation et supervision de 43 agents en codification, assurant un succès de l'activité.</li>
+            <li>Contrôle et validation de la cohérence des données financières pour l'élaboration des centrales de bilan annuelles (2018–2022).</li>
+            <li>Rédaction de rapports journaliers et de synthèse pour anticiper et résoudre les problèmes liés à la collecte et au traitement des données statistiques.</li>
+            <li>Analyse des données issues de l'étude DATAFID, avec production de rapports détaillés pour des partenaires internationaux comme Expertise France.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="tl-period">Juin 2023 — Sept. 2023</div>
+        <div class="tl-title">Chargé de Reporting & Pilotage de Données</div>
+        <div class="tl-org">SGCI, Abidjan</div>
+        <div class="tl-body">
+          <ul>
+            <li>Coordination et contrôle de la qualité des données collectées pour assurer la fiabilité des reportings.</li>
+            <li>Développement et optimisation de tableaux de bord interactifs pour le suivi en temps réel des indicateurs clés.</li>
+            <li>Analyse approfondie des données et identification des tendances pour orienter les décisions stratégiques.</li>
+            <li>Élaboration de rapports détaillés à destination des parties prenantes internes.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="tl-period">Mai 2022 — Sept. 2022 · Stage</div>
+        <div class="tl-title">Ingénieur Statisticien</div>
+        <div class="tl-org">FDFP — Fonds de Développement de la Formation Professionnelle, Abidjan</div>
+        <div class="tl-body">
+          <ul>
+            <li>Apurement de la base de données opérationnelles des actions de formation.</li>
+            <li>Analyse des taux d'évolution des financements du FDFP et du nombre de bénéficiaires.</li>
+            <li>Analyse des coûts des actions de formation et leurs déterminants en vue de les minimiser sans affecter la qualité des formations.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="tl-period">2022</div>
+        <div class="tl-title">Statisticien</div>
+        <div class="tl-org">OMS & Ministère de la Santé, Abidjan</div>
+        <div class="tl-body">
+          <p>Paramétrage de CSPro et validation des indicateurs de l'enquête HHFA 2022. Expert adjoint pays pour l'adaptation des outils de collecte HHFA durant les séminaires (2 mois).</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="tl-period">2021</div>
+        <div class="tl-title">Statisticien</div>
+        <div class="tl-org">PAPSE — UNESCO</div>
+        <div class="tl-body">
+          <p>Collecte des données de l'évaluation post-test de la formation parentale du projet PAPSE dans les régions du Nord (Odienné, Boundiali).</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="tl-period">Nov. 2019 — Févr. 2020 · Stage</div>
+        <div class="tl-title">Statisticien</div>
+        <div class="tl-org">G4S Secure Solutions, Abidjan</div>
+        <div class="tl-body">
+          <ul>
+            <li>Création d'une base de données des contrats permettant de suivre l'échéance des contrats.</li>
+            <li>Enregistrement des bons de commande et de livraison, modification ou ajout de contrats.</li>
+            <li>Archivage de dossiers clients.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="tl-period">Mai 2018 — Juil. 2018 · Stage</div>
+        <div class="tl-title">Assistant Chargé d'Études</div>
+        <div class="tl-org">ENSEA, Abidjan</div>
+        <div class="tl-body">
+          <ul>
+            <li>Participation à la conception et la mise en place des protocoles d'enquête.</li>
+            <li>Participation à l'élaboration et à la validation des outils de collecte de données.</li>
+            <li>Appui à la coordination des équipes de terrain lors des opérations d'enquête.</li>
+            <li>Collecte des données sur l'étude de la résilience de la population de Toumodi (déviation de l'autoroute du nord, 2018).</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CERTIFICATIONS ═══════ -->
+<section id="certifications">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-label">Développement continu</div>
+      <h2 class="section-title">Certifications</h2>
+    </div>
+    <div class="cert-grid">
+
+      <div class="cert-card reveal">
+        <div class="cert-icon">📋</div>
+        <div>
+          <div class="cert-name">Suivi et Évaluation d'un projet de développement</div>
+          <div class="cert-issuer">Certification professionnelle</div>
+        </div>
+      </div>
+
+      <div class="cert-card reveal" style="animation-delay:0.1s">
+        <div class="cert-icon">📣</div>
+        <div>
+          <div class="cert-name">Analyser des données marketing</div>
+          <div class="cert-issuer">Certification en ligne</div>
+        </div>
+      </div>
+
+      <div class="cert-card reveal" style="animation-delay:0.2s">
+        <div class="cert-icon">📉</div>
+        <div>
+          <div class="cert-name">Devenir analyste de données</div>
+          <div class="cert-issuer">Certification en ligne</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Krou Romaric MESSAN</span> · Ingénieur des Travaux Statistiques · Abidjan, Côte d'Ivoire</p>
+</footer>
+
+<script>
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(r => revealObs.observe(r));
+</script>
+
+</body>
+</html>
